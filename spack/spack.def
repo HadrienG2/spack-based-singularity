@@ -15,6 +15,7 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     echo "source /opt/spack/share/spack/setup-env.sh" >> ${SINGULARITY_ENVIRONMENT}
 
     # It seems spack find must run at least once with a writable filesystem
+    source /opt/spack/share/spack/setup-env.sh
     spack find
 
     # Discard the system package cache to save up space
