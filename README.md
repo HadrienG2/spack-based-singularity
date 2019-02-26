@@ -4,7 +4,7 @@
     * [X] Tumbleweed
     * [X] Spack
     * [X] Verrou
-    * [ ] ROOT
+    * [X] ROOT
     * [ ] Gaudi
     * [ ] ACTS
     * [ ] ACTS + Verrou
@@ -15,5 +15,6 @@
       (e.g. running unit tests of ACTS)
 - [ ] Find a solution for cases where we really want to build multiple variants
       of the same image (e.g. ACTS Debug vs RelDeb)
-- [ ] A build failure currently requires restarting everything from scratch.
-      Can this be helped?
+- [ ] A build/test failure currently requires restarting everything, unlike
+      Docker whose layers provide nifty snapshots. Can this be helped?
+- [ ] Find out a way to make the run-time environment available in tests.
