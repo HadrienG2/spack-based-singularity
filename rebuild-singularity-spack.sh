@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 # Build parameters
 # TODO: Find a way to pass these down to singularity builds
-IMAGES_ROOT="/home/hadrien/Software/singularity-images/"
+IMAGES_ROOT="/home/hadrien/Software/singularity-images"
 VERROU_VERSION="2.1.0"
 ROOT_VERSION="6.16.00"
 
