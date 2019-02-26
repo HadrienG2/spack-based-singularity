@@ -15,7 +15,7 @@ From: /home/hadrien/Software/singularity-images/spack.sif
                      -examples +gdml -memstat -minuit +opengl +root7 -rootfit  \
                      +rpath +sqlite +ssl +tbb +threads -tiff -tmva -unuran     \
                      +vdt +x -xml"
-    echo "export ROOT_SPACK_SPEC=${ROOT_SPACK_SPEC}" >> ${SINGULARITY_ENVIRONMENT}
+    echo "export ROOT_SPACK_SPEC=\"${ROOT_SPACK_SPEC}\"" >> ${SINGULARITY_ENVIRONMENT}
 
     # Install ROOT
     echo "Installing ${ROOT_SPACK_SPEC}..." && spack install ${ROOT_SPACK_SPEC}
