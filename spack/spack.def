@@ -3,7 +3,7 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
 
 %post
     # Install some dependencies of Spack
-    zypper in -y git python
+    zypper in -y gcc gcc-c++ gcc-fortran git python python-xml
 
     # Install an environment module system
     zypper in -y lua-lmod
@@ -14,5 +14,12 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     git clone --depth=1 https://github.com/spack/spack.git
     echo "source /opt/spack/share/spack/setup-env.sh" >> ${SINGULARITY_ENVIRONMENT}
 
+    # It seems spack find must run at least once with a writable filesystem
+    spack find
+
     # Discard the system package cache to save up space
     zypper clean
+
+%test
+    spack find
+    spack help
