@@ -3,7 +3,8 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
 
 %post
     # Install some dependencies of Spack
-    zypper in -y gcc gcc-c++ gcc-fortran git python python-xml
+    zypper in -y bzip2 curl gcc gcc-c++ gcc-fortran git gzip make patch python \
+                 python-xml tar unzip xz
 
     # Install an environment module system
     zypper in -y lua-lmod
