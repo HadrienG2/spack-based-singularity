@@ -8,6 +8,7 @@
     * [ ] Gaudi
     * [ ] ACTS
     * [ ] ACTS + Verrou
+- [ ] Once everything is ported, do a big test rebuild
 - [ ] Stop hardcoding image paths
 - [ ] Stop hardcoding package versions
 - [ ] Find a host for all these images

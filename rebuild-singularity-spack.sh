@@ -11,6 +11,8 @@ ROOT_VERSION="6.16.00"
 echo "*** Deleting old Singularity images ***"
 rm -f ${IMAGES_ROOT}/tumbleweed.sif
 rm -f ${IMAGES_ROOT}/spack.sif
+rm -f ${IMAGES_ROOT}/verrou-${VERROU_VERSION}.sif
+rm -f ${IMAGES_ROOT}/root-${ROOT_VERSION}-cxx17.sif
 
 echo "*** Building base Tumbleweed image ***"
 cd tumbleweed
