@@ -26,3 +26,9 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     source /opt/spack/share/spack/setup-env.sh
     spack find
     spack help
+
+%labels
+    Author grasland@lal.in2p3.fr
+
+%help
+    This container features a Spack installation on openSUSE Tumbleweed.
