@@ -1,0 +1,14 @@
+Bootstrap: localimage
+From: /home/hadrien/Software/singularity-images/spack.sif
+
+%post
+    spack install verrou@${VERROU_VERSION}
+    echo "spack load verrou" >> ${SINGULARITY_ENVIRONMENT}
+
+%test
+    spack load verrou
+    valgrind --tool=verrou --rounding-mode=upward python -c "print(1./3.)"
+    valgrind --tool=verrou --rounding-mode=downward python -c "print(1./3.)"
+    
+%help
+    This container features a Verrou installation on openSUSE Tumbleweed.
