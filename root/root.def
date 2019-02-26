@@ -23,12 +23,16 @@ From: /home/hadrien/Software/singularity-images/spack.sif
     # Prepare the environment for running ROOT
     echo "spack load ${ROOT_SPACK_SPEC}" >> ${SINGULARITY_ENVIRONMENT}
 
-    # Save up space
-    spack clean
-
-%test
+    # Test the build
+    #
+    # FIXME: I would like to use %test here, but SINGULARITY_ENVIRONMENT is not
+    #        visible in the %test section for whatever reason...
+    #
     source ${SINGULARITY_ENVIRONMENT}
     root.exe -b -q -e "(6*7)-(6*7)"
+
+    # Save up space
+    spack clean
 
 %help
     This container features a ROOT installation on openSUSE Tumbleweed.
