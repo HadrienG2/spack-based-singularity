@@ -3,9 +3,18 @@ OSVersion: tumbleweed
 MirrorURL: http://download.opensuse.org/%{OSVERSION}/repo/oss/
 Include: openSUSE-release zypper
 
+%post
+    # Enable all the base openSUSE repositories
+    zypper nr repo-oss opensuse-oss
+    zypper ar http://download.opensuse.org/tumbleweed/repo/non-oss opensuse-non-oss
+    zypper ar http://download.opensuse.org/debug/tumbleweed/repo/oss/ opensuse-debug
+    zypper ar http://download.opensuse.org/source/tumbleweed/repo/oss/ opensuse-source
+    zypper ar http://download.opensuse.org/update/tumbleweed/ opensuse-update
+
 %test
     cat /etc/os-release
     zypper info zypper
+    zypper lr -u
 
 %labels
     Author grasland@lal.in2p3.fr
