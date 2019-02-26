@@ -22,6 +22,11 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     # Discard the system package cache to save up space
     zypper clean
 
+%environment
+    # Some build script such as tar's do not like Singularity's habit of running
+    # everything as root, and need a little convincing
+    export FORCE_UNSAFE_CONFIGURE=1
+
 %test
     source /opt/spack/share/spack/setup-env.sh
     spack find
