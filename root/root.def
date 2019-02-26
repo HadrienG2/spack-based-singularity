@@ -1,0 +1,34 @@
+Bootstrap: localimage
+From: /home/hadrien/Software/singularity-images/spack.sif
+
+%post
+    # TODO: Find a replacement to Docker's build args
+    ROOT_VERSION=6.16.00
+    ROOT_CXX_STANDARD=17
+
+    # Bring in the run-time environment (we need it at build time too...)
+    source ${SINGULARITY_ENVIRONMENT}
+
+    # This is a reasonably minimal ROOT Spack specification. We record it to an
+    # environment variable so that clients can later use the same ROOT build.
+    ROOT_SPACK_SPEC="root@${ROOT_VERSION} cxxstd=${ROOT_CXX_STANDARD} -davix   \
+                     -examples +gdml -memstat -minuit +opengl +root7 -rootfit  \
+                     +rpath +sqlite +ssl +tbb +threads -tiff -tmva -unuran     \
+                     +vdt +x -xml"
+    echo "export ROOT_SPACK_SPEC=${ROOT_SPACK_SPEC}" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Install ROOT
+    echo "Installing ${ROOT_SPACK_SPEC}..." && spack install ${ROOT_SPACK_SPEC}
+
+    # Prepare the environment for running ROOT
+    echo "spack load ${ROOT_SPACK_SPEC}" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Save up space
+    spack clean
+
+%test
+    source ${SINGULARITY_ENVIRONMENT}
+    root.exe -b -q -e "(6*7)-(6*7)"
+
+%help
+    This container features a ROOT installation on openSUSE Tumbleweed.
