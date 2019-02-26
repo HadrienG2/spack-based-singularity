@@ -19,13 +19,16 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     source /opt/spack/share/spack/setup-env.sh
     spack find
 
-    # Discard the system package cache to save up space
-    zypper clean
-
-%environment
     # Some build script such as tar's do not like Singularity's habit of running
     # everything as root, and need a little convincing
-    export FORCE_UNSAFE_CONFIGURE=1
+    #
+    # FIXME: I would like to use %environment, but I need that environment at
+    #        build time and it does not seem to be possible at the moment.
+    #
+    echo "export FORCE_UNSAFE_CONFIGURE=1" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Discard the system package cache to save up space
+    zypper clean
 
 %test
     source /opt/spack/share/spack/setup-env.sh
