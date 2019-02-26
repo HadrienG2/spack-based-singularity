@@ -5,9 +5,10 @@ From: /home/hadrien/Software/singularity-images/spack.sif
     source ${SINGULARITY_ENVIRONMENT}
     spack install verrou@2.1.0
     echo "spack load verrou" >> ${SINGULARITY_ENVIRONMENT}
+    spack clean
 
 %test
-    spack load verrou
+    source ${SINGULARITY_ENVIRONMENT}
     valgrind --tool=verrou --rounding-mode=upward python -c "print(1./3.)"
     valgrind --tool=verrou --rounding-mode=downward python -c "print(1./3.)"
     
