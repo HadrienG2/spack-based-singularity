@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: ${IMAGES_ROOT}/tumbleweed.sif
+From: /home/hadrien/Software/singularity-images/tumbleweed.sif
 
 %post
     # Install some dependencies of Spack
