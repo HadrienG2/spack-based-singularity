@@ -22,7 +22,7 @@ From: /home/hadrien/Software/singularity-images/spack.sif
     valgrind --tool=verrou --rounding-mode=downward python -c "print(1./3.)"
 
     # Clean up after ourselves
-    spack clean
+    spack clean -a
     
 %help
     This container features a Verrou installation on openSUSE Tumbleweed.

@@ -32,7 +32,7 @@ From: /home/hadrien/Software/singularity-images/spack.sif
     root.exe -b -q -e "(6*7)-(6*7)"
 
     # Save up space
-    spack clean
+    spack clean -a
 
 %help
     This container features a ROOT installation on openSUSE Tumbleweed.
