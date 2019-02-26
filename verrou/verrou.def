@@ -2,9 +2,17 @@ Bootstrap: localimage
 From: /home/hadrien/Software/singularity-images/spack.sif
 
 %post
+    # TODO: Find a replacement to Docker's build args
+    VERROU_VERSION=2.1.0
+
+    # Bring in the run-time environment (we need it at build time too...)
     source ${SINGULARITY_ENVIRONMENT}
-    spack install verrou@2.1.0
+
+    # Install verrou and bring it into global scope
+    spack install verrou@${VERROU_VERSION}
     echo "spack load verrou" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Clean up after ourselves
     spack clean
 
 %test
