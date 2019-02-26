@@ -2,6 +2,7 @@ Bootstrap: localimage
 From: /home/hadrien/Software/singularity-images/spack.sif
 
 %post
+    source ${SINGULARITY_ENVIRONMENT}
     spack install verrou@2.1.0
     echo "spack load verrou" >> ${SINGULARITY_ENVIRONMENT}
 
