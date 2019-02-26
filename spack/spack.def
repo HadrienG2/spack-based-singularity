@@ -22,5 +22,6 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     zypper clean
 
 %test
+    source /opt/spack/share/spack/setup-env.sh
     spack find
     spack help
