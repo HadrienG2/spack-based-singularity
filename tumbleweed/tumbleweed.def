@@ -12,9 +12,15 @@ Include: openSUSE-release zypper
     zypper ar http://download.opensuse.org/update/tumbleweed/ opensuse-update
 
 %test
+    # Display a summary of the OS information
     cat /etc/os-release
+
+    # Check that zypper works properly
     zypper info zypper
     zypper lr -u
+
+    # Clean up after ourselves
+    zypper clean
 
 %labels
     Author grasland@lal.in2p3.fr
