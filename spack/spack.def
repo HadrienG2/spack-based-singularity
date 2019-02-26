@@ -1,0 +1,18 @@
+Bootstrap: localimage
+From: ${IMAGES_ROOT}/tumbleweed.sif
+
+%post
+    # Install some dependencies of Spack
+    zypper in -y git python
+
+    # Install an environment module system
+    zypper in -y lua-lmod
+    echo "source /usr/share/lmod/lmod/init/bash" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Install Spack itself
+    cd /opt
+    git clone --depth=1 https://github.com/spack/spack.git
+    echo "source /opt/spack/share/spack/setup-env.sh" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Discard the system package cache to save up space
+    zypper clean

@@ -1,0 +1,16 @@
+Bootstrap: zypper
+OSVersion: tumbleweed
+MirrorURL: http://download.opensuse.org/%{OSVERSION}/repo/oss/
+Include: openSUSE-release zypper
+
+%test
+    cat /etc/os-release
+    zypper info zypper
+
+%labels
+    Author grasland@lal.in2p3.fr
+
+%help
+    This container features the latest snapshot of openSUSE Tumbleweed at the
+    time of building (which you can query via the "org.label-schema.build-date"
+    image metadata field).
