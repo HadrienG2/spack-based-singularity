@@ -31,3 +31,7 @@ singularity build --force ${IMAGES_ROOT}/gaudi.sif gaudi.def
 echo "*** Building ACTS image ***"
 cd ../acts
 singularity build --force ${IMAGES_ROOT}/acts.sif acts.def
+
+# TODO: ACTSFW image placeholder
+
+# TODO: ACTS + Verrou image
