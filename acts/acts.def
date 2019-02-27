@@ -14,7 +14,7 @@ From: /home/hadrien/Software/singularity-images/root-6.16.00-cxx17.sif
                                        +integration_tests +json +legacy        \
                                        +material +tests +tgeo                  \
                      ^ ${ROOT_SPACK_SPEC}"
-    echo "export ACTS_SPACK_SPEC=${ACTS_SPACK_SPEC}" >> ${SINGULARITY_ENVIRONMENT}
+    echo "export ACTS_SPACK_SPEC=\"${ACTS_SPACK_SPEC}\"" >> ${SINGULARITY_ENVIRONMENT}
 
     # Build acts-core, do not install it yet
     spack build ${ACTS_SPACK_SPEC}
