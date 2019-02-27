@@ -7,6 +7,7 @@ IFS=$'\n\t'
 IMAGES_ROOT="/home/hadrien/Software/singularity-images"
 VERROU_VERSION="2.1.0"
 ROOT_VERSION="6.16.00"
+ACTS_BUILD_TYPE="Debug"
 
 echo "*** Building base Tumbleweed image ***"
 cd tumbleweed
@@ -30,10 +31,13 @@ singularity build --force ${IMAGES_ROOT}/gaudi.sif gaudi.def
 
 echo "*** Building ACTS image ***"
 cd ../acts
-singularity build --force ${IMAGES_ROOT}/acts.sif acts.def
+singularity build --force ${IMAGES_ROOT}/acts-${ACTS_BUILD_TYPE}.sif acts.def
 
-# TODO: ACTSFW image placeholder
+# TODO: Add ACTSFW image once bug acts-framework#129 is resolved
+echo "*** Skipping ACTS test framework image due to C++17 incompatibility ***"
 
-# TODO: ACTS + Verrou image
+echo "***Building Verrou-enhanced ACTS dev image ***"
+cd ../acts-verrou
+singularity build --force ${IMAGES_ROOT}/acts-verrou.sif acts-verrou.def
 
 # TODO: Push images to some kind of remote hosting
