@@ -19,3 +19,5 @@
 - [ ] A build/test failure currently requires restarting everything, unlike
       Docker whose layers provide nifty snapshots. Can this be helped?
 - [ ] Find out a way to make the run-time environment available in tests.
+- [ ] Find a workaround for "Help message already exists and force option is
+      false, not overwriting"
