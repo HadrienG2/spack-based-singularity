@@ -35,3 +35,5 @@ singularity build --force ${IMAGES_ROOT}/acts.sif acts.def
 # TODO: ACTSFW image placeholder
 
 # TODO: ACTS + Verrou image
+
+# TODO: Push images to some kind of remote hosting
