@@ -10,6 +10,7 @@
     * [ ] ACTS + Verrou
     * [ ] ACTSFW (désactivé)
 - [ ] Once everything is ported, do a big test rebuild
+- [ ] Reflect on produced images and update the following hack list
 - [ ] Stop hardcoding image paths
 - [ ] Stop hardcoding package versions
 - [ ] Find a host for all these images
