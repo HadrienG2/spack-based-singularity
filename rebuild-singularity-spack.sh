@@ -23,3 +23,7 @@ singularity build --force ${IMAGES_ROOT}/verrou-${VERROU_VERSION}.sif verrou.def
 echo "*** Building ROOT image ***"
 cd ../root
 singularity build --force ${IMAGES_ROOT}/root-${ROOT_VERSION}-cxx17.sif root.def
+
+echo "*** Building Gaudi image ***"
+cd ../gaudi
+singularity build --force ${IMAGES_ROOT}/gaudi.sif gaudi.def
