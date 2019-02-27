@@ -1,0 +1,49 @@
+Bootstrap: localimage
+From: /home/hadrien/Software/singularity-images/root-6.16.00-cxx17.sif
+
+%post
+    # TODO: Find a replacement to Docker's build args
+    ACTS_BUILD_TYPE=Debug
+
+    # Bring in the run-time environment (we need it at build time too...)
+    source ${SINGULARITY_ENVIRONMENT}
+
+    # This is the variant of the ACTS package which we are going to build
+    ACTS_SPACK_SPEC="acts-core@develop build_type=${ACTS_BUILD_TYPE} +dd4hep   \
+                                       +digitization +examples +identification \
+                                       +integration_tests +json +legacy        \
+                                       +material +tests +tgeo                  \
+                     ^ ${ROOT_SPACK_SPEC}"
+    echo "export ACTS_SPACK_SPEC=${ACTS_SPACK_SPEC}" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Build acts-core, do not install it yet
+    spack build ${ACTS_SPACK_SPEC}
+
+    # Cache the location of the ACTS build directory (it takes a while to compute)
+    ACTS_SOURCE_DIR=`spack location --build-dir ${ACTS_SPACK_SPEC}`
+    ACTS_BUILD_DIR=${ACTS_SOURCE_DIR}/spack-build
+
+    # Run the unit tests
+    cd ${ACTS_BUILD_DIR}
+    spack build-env acts-core ctest -j8
+
+    # Run the integration tests
+    cd ${ACTS_BUILD_DIR}/Tests/Integration
+    spack build-env acts-core ./PropagationTests
+    spack build-env acts-core ./SeedingTest
+
+    # Run the benchmarks
+    cd ${ACTS_BUILD_DIR}/Tests/Core
+    spack build-env acts-core ./Propagator/EigenStepperBenchmark
+    spack build-env acts-core ./Propagator/AtlasStepperBenchmark
+    spack build-env acts-core ./Surfaces/BoundaryCheckBenchmark
+
+    # Finish installing ACTS
+    cd ${ACTS_SOURCE_DIR}
+    spack diy --quiet ${ACTS_SPACK_SPEC}
+
+    # Save up space
+    spack clean -a
+
+%help
+    This container features an ACTS installation on openSUSE Tumbleweed.
