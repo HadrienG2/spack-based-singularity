@@ -10,10 +10,6 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
     # Bring in the run-time environment (we need it at build time too...)
     source ${SINGULARITY_ENVIRONMENT}
 
-    # These environment variables should really exist at the %files stage...
-    ACTS_SOURCE_DIR=/root/acts-core
-    ACTS_BUILD_DIR=${ACTS_SOURCE_DIR}/spack-build
-
 
     # === INSTALL VERROU ===
 
@@ -30,14 +26,17 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
 
     # === SETUP AN ACTS DEVELOPMENT ENVIRONMENT ===
 
-    # Start working on a development branch of ACTS, uninstalling the system
-    # version to shrink Singularity image size
+    # Drop the parent ACTS install, we'll be building a new one anyway
     spack uninstall -y ${ACTS_SPACK_SPEC}
+
+    # Start working on a development branch of ACTS
+    cd /root
     git clone https://gitlab.cern.ch/hgraslan/acts-core.git
     spack diy -d acts-core ${ACTS_SPACK_SPEC}
 
-    # Keep the location of the ACTS build directory around
-    echo "export ACTS_BUILD_DIR=${ACTS_BUILD_DIR}" >> ${SINGULARITY_ENVIRONMENT}
+    # These environment variables should really exist at the %files stage...
+    ACTS_SOURCE_DIR=/root/acts-core
+    ACTS_BUILD_DIR=${ACTS_SOURCE_DIR}/spack-build
 
 
     # === TEST ACTS USING VERROU'S RANDOM-ROUNDING MODE ===
