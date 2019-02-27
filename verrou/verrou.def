@@ -17,7 +17,7 @@ From: /home/hadrien/Software/singularity-images/spack.sif
     # FIXME: I would like to use %test here, but SINGULARITY_ENVIRONMENT is not
     #        visible in the %test section for whatever reason...
     #
-    source ${SINGULARITY_ENVIRONMENT}
+    spack load verrou
     valgrind --tool=verrou --rounding-mode=upward python -c "print(2./3.)"
     valgrind --tool=verrou --rounding-mode=downward python -c "print(2./3.)"
     valgrind --tool=verrou --rounding-mode=float python -c "print(2./3.)"

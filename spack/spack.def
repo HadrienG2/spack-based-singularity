@@ -31,6 +31,7 @@ From: /home/hadrien/Software/singularity-images/tumbleweed.sif
     zypper clean
 
 %test
+    # FIXME: I shouldn't need to write this command three times
     source /opt/spack/share/spack/setup-env.sh
     spack find
     spack help
