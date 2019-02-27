@@ -57,24 +57,27 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
     ${VERROU_CMD_BASE} ./PropagationTests
     ${VERROU_CMD_BASE} ./SeedingTest
 
-    # Delta-debug an ACTS unit tests to find out in which ELF symbols Verrou
-    # perturbations will cause a test failure.
+    # FIXME: verrou_dd currently fails with message "The generation of
+    #        exclusion/source files failed", this must be resolved.
     #
-    # This is an easy way to locate instabilities, which can then be classified
-    # as genuine numerical problems or false-positives and be fixed or excluded
-    # accordingly. The provided exclude list was generated via this process.
-    #
-    # NOTE: In principle, delta-debugging should go down to the granularity of
-    #       individual source lines, but this currently fails. I think that is
-    #       because the instabilities are in the libm and I do not have
-    #       debugging symbols for that. But since we already know that the libm
-    #       trigonometric function instabilities are a false alarm, this is not
-    #       really an issue.
-    #
-    mv /root/run.sh /root/cmp.sh ${ACTS_BUILD_DIR}/
-    cd ${ACTS_BUILD_DIR}
-    chmod +x run.sh cmp.sh
-    verrou_dd run.sh cmp.sh
+    # # Delta-debug an ACTS unit tests to find out in which ELF symbols Verrou
+    # # perturbations will cause a test failure.
+    # #
+    # # This is an easy way to locate instabilities, which can then be classified
+    # # as genuine numerical problems or false-positives and be fixed or excluded
+    # # accordingly. The provided exclude list was generated via this process.
+    # #
+    # # NOTE: In principle, delta-debugging should go down to the granularity of
+    # #       individual source lines, but this currently fails. I think that is
+    # #       because the instabilities are in the libm and I do not have
+    # #       debugging symbols for that. But since we already know that the libm
+    # #       trigonometric function instabilities are a false alarm, this is not
+    # #       really an issue.
+    # #
+    # mv /root/run.sh /root/cmp.sh ${ACTS_BUILD_DIR}/
+    # cd ${ACTS_BUILD_DIR}
+    # chmod +x run.sh cmp.sh
+    # verrou_dd run.sh cmp.sh
 
     # === CLEAN UP BEFORE PUSHING ===
 
