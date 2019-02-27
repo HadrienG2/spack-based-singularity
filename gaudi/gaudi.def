@@ -1,0 +1,41 @@
+Bootstrap: localimage
+From: /home/hadrien/Software/singularity-images/root-6.16.00-cxx17.sif
+
+%post
+    # Bring in the run-time environment (we need it at build time too...)
+    source ${SINGULARITY_ENVIRONMENT}
+
+    # The RELAX package's rolling release policy is considered naughty by Spack
+    # as it makes builds non-reproducible. To disable checksum verification for
+    # this package while keeping it for others, we'll need to hack a bit...
+    spack install --only dependencies relax ^ ${ROOT_SPACK_SPEC}
+    spack install --no-checksum relax ^ ${ROOT_SPACK_SPEC}
+
+    # Build a spack spec for Gaudi
+    GAUDI_SPACK_SPEC="gaudi@develop +tests +optional ^ ${ROOT_SPACK_SPEC}"
+    echo "export GAUDI_SPACK_SPEC=\"${GAUDI_SPACK_SPEC}\"" >> ${SINGULARITY_ENVIRONMENT}
+
+    # Build Gaudi and its dependencies using Spack
+    spack build ${GAUDI_SPACK_SPEC}
+
+    # Test the Gaudi build
+    #
+    # FIXME: I would like to use %test here, but the unit tests will only be
+    #        available until the build is dropped.
+    #
+    # TODO: If this fails due to the usual ptrace permission problem, then...
+    #       1. Figure out if Singularity has a way to enable ptrace in builds
+    #       2. If not, figure out if it has a way to enable ptrace at runtime
+    #       3. Bring back a Singularity version of the Dockerfile comment
+    #
+    spack cd --build-dir ${GAUDI_SPACK_SPEC}
+    cd spack-build
+    spack build-env gaudi+tests+optional ctest -j8
+
+    # Save up space (this will drop the Gaudi build, but preserve its
+    # dependencies, which is what we want for a Gaudi development environment)
+    spack clean -a
+
+%help
+    This container features a Gaudi development environment based on
+    openSUSE Tumbleweed.
