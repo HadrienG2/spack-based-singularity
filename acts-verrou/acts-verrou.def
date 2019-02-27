@@ -10,7 +10,6 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
     # Bring in the run-time environment (we need it at build time too...)
     source ${SINGULARITY_ENVIRONMENT}
 
-
     # === INSTALL VERROU ===
 
     # Install Verrou
@@ -22,7 +21,6 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
     spack load verrou
     echo "spack load python@3 -pythoncmd" >> ${SINGULARITY_ENVIRONMENT}
     echo "spack load verrou" >> ${SINGULARITY_ENVIRONMENT}
-
 
     # === SETUP AN ACTS DEVELOPMENT ENVIRONMENT ===
 
@@ -37,7 +35,6 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
     # These environment variables should really exist at the %files stage...
     ACTS_SOURCE_DIR=/root/acts-core
     ACTS_BUILD_DIR=${ACTS_SOURCE_DIR}/spack-build
-
 
     # === TEST ACTS USING VERROU'S RANDOM-ROUNDING MODE ===
 
@@ -78,7 +75,6 @@ From: /home/hadrien/Software/singularity-images/acts-Debug.sif
     cd ${ACTS_BUILD_DIR}
     chmod +x run.sh cmp.sh
     verrou_dd run.sh cmp.sh
-
 
     # === CLEAN UP BEFORE PUSHING ===
 
