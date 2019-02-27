@@ -23,11 +23,6 @@ From: /home/hadrien/Software/singularity-images/root-6.16.00-cxx17.sif
     # FIXME: I would like to use %test here, but the unit tests will only be
     #        available until the build is dropped.
     #
-    # TODO: If this fails due to the usual ptrace permission problem, then...
-    #       1. Figure out if Singularity has a way to enable ptrace in builds
-    #       2. If not, figure out if it has a way to enable ptrace at runtime
-    #       3. Bring back a Singularity version of the Dockerfile comment
-    #
     spack cd --build-dir ${GAUDI_SPACK_SPEC}
     cd spack-build
     spack build-env gaudi+tests+optional ctest -j8
