@@ -11,9 +11,11 @@ Include: openSUSE-release zypper
     zypper ar http://download.opensuse.org/source/tumbleweed/repo/oss/ tumbleweed-source
     zypper ar http://download.opensuse.org/update/tumbleweed/ tumbleweed-update
 
-    # The bootrstrap does some most unclean stuff, which leads to weirdness like
-    # the container seeing the /etc/os-release of the host. Clean things up.
-    zypper in --force -y openSUSE-release zypper
+    # HACK: It seems there is some weird interaction between the zypper
+    #       bootstrap and the filesystem overlay, leading to host system files
+    #       being seen in place of guest ones. This works around that by
+    #       force-reinstalling everything that was installed during bootstrap.
+    zypper in --force --non-interactive $(rpm -q -a --qf '%{NAME} ')
 
 %test
     # Display a summary of the OS information
