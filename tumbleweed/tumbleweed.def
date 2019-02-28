@@ -15,7 +15,9 @@ Include: openSUSE-release zypper
     #       bootstrap and the filesystem overlay, leading to host system files
     #       being seen in place of guest ones. This works around that by
     #       force-reinstalling everything that was installed during bootstrap.
-    zypper in --force --no-confirm $(rpm -q -a --qf '%{NAME} ')
+    rpm -q -a --qf '%{NAME}\n'                                                 \
+        | grep --invert-match gpg-pubkey                                       \
+        | xargs zypper in --force --no-confirm
 
 %test
     # Display a summary of the OS information
